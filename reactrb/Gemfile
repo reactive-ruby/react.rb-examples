@@ -1,0 +1,7 @@
+source 'http://rubygems.org'
+
+gem 'reactive-ruby', '0.7.40'
+gem 'sinatra'
+gem 'opal-jquery'
+gem 'reactive-router'
+gem 'opal-rails'

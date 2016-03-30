@@ -34,3 +34,8 @@ or
 Note that these are very simple examples, for the purpose of showing how to
 configure the gem in various server environments.  For more  examples and
 information see [reactrb.org](http://reactrb.org).
+
+## Other Examples
+
+- [Reactive To-Do](https://github.com/loicboutet/reactivetodo) - a sample app that makes use of reactive-record for persistence
+- [ReactRb Tutorial](https://github.com/loicboutet/reactrb_tutorial) - a step by step tutorial for creating a reactive to-do app

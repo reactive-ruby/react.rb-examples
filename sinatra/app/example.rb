@@ -25,8 +25,6 @@ class CommentBox
 
   include React::Component
 
-  include React::IsomorphicHelpers
-
   # Components can have parameters that are passed in when the component is first "mounted"
   # and then updated as the application state changes.  In this case, url and poll_interval will
   # never change since this is the top level component.

@@ -57,7 +57,7 @@ class CommentBox
     @fetcher = every(params.poll_interval) do   # we use the opal browser utility to call the server every poll_interval seconds
       HTTP.get(params.url) do |response|        # notice that params poll_interval, and url are accessed as instance methods
         if response.ok?
-          comments! JSON.parse(response.body)   # comments!(value) updates the state and notifies react of the state change
+          state.comments! JSON.parse(response.body)   # comments!(value) updates the state and notifies react of the state change
         else
           puts "failed with status #{response.status_code}"
         end
@@ -107,7 +107,7 @@ class CommentBox
       # Custom components use their class name as the tag.  Notice that the comments state is passed to
       # to the CommentList component.  This is the normal React paradigm: Data flows towards the leaf nodes.
 
-      CommentList comments: comments
+      CommentList comments: state.comments
 
       # Sometimes it's necessary for data to move upwards, and react provides several ways to do this.
 
@@ -118,7 +118,7 @@ class CommentBox
       # operator is important as the value of comments has NOT changed (it's still the same array), but its
       # internal state has.
 
-      CommentForm submit_comment: lambda { |comment| comments! << send_comment_to_server(comment)}
+      CommentForm submit_comment: lambda { |comment| state.comments! << send_comment_to_server(comment)}
 
     end
   end

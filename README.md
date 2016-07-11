@@ -1,6 +1,6 @@
-# React.rb Example Apps
+# Reactrb Example Apps
 
-### [React.rb](https://github.com/reactrb/reactrb) is a complete [React.js](http://facebook.github.io/react/) [Opal Ruby](http://opalrb.org) wrapper.
+### [Reactrb](https://github.com/reactrb/reactrb) is a complete [React.js](http://facebook.github.io/react/) [Opal Ruby](http://opalrb.org) wrapper.
 
 [**Visit reactrb.org For The Full Story**](http://reactrb.org)
 

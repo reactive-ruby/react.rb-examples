@@ -82,7 +82,7 @@ class CommentBox
   # in this case, we receive a new comment and send it to the server
 
   def send_comment_to_server(comment)
-    HTTP.post(url, payload: comment) do |response|
+    HTTP.post(params.url, payload: comment) do |response|
       puts "failed with status #{response.status_code}" unless response.ok?
     end
     comment
@@ -197,7 +197,7 @@ class CommentForm
 
         input.author_name(type: :text, value: state.author, placeholder: "Your name", style: {width: "30%"}).
           # and we attach an on_change handler to the input.  As the input changes we simply update author.
-          on(:change) { |e| author! e.target.value }
+          on(:change) { |e| state.author! e.target.value }
 
       end
 
@@ -205,7 +205,7 @@ class CommentForm
         # let's have some fun with the text.  Same deal as the author except we will use a text area...
         div(style: {float: :left, width: "50%"}) do
           textarea(value: state.text, placeholder: "Say something...", style: {width: "90%"}, rows: 30).
-            on(:change) { |e| text! e.target.value }
+            on(:change) { |e| state.text! e.target.value }
         end
         # and let's use Showdown to allow for markdown, and display the mark down to the left of input
         # we will define Showdown later, and it will be our first reusable component, as we will use it twice.
@@ -221,7 +221,7 @@ class CommentForm
       # This is usually the desired behavior in React as we are typically interested in state changes,
       # and before/after values, not simply doing a chained update of multiple variables.
 
-      button { "Post" }.on(:click) { submit_comment :author => (author! ""), :text => (text! "") }
+      button { "Post" }.on(:click) { params.submit_comment :author => (state.author! ""), :text => (state.text! "") }
 
     end
   end

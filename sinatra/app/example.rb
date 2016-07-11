@@ -159,7 +159,7 @@ class CommentList
       params.comments.each do |comment|
         # By now we are getting used to the react paradigm:  Stuff comes in, is processed, and then
         # passed to next lower level.  In this case we pass along each author-text pair to the Comment component.
-        Comment author: comment[:author], text: comment[:text], hash: comment
+        Comment author: comment[:author], text: comment[:text]
       end
     end
   end
@@ -236,7 +236,6 @@ class Comment
 
   param :author
   param :text
-  param :hash, type: Hash
 
   def render
     div.comment do

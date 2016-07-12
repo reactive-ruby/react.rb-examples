@@ -96,7 +96,7 @@ class CommentBox
   # throw an error.  Just remember that there is already a DOM node waiting for the output of the render
   # hence the need for exactly one element per render.
 
-  def render
+  render do
 
     # the dsl syntax is simply a method call, with params hash, followed by a block
     # the built in dsl methods correspond to the standard HTML5 tags such as div, h1, table, tr, td, span etc.
@@ -146,7 +146,7 @@ class CommentList
   # does NOT reinitialize its state.  If changes in state are needed as result of incoming param changes
   # the before_receive_props call back can be used.
 
-  def render
+  render do
 
     # Let's render some comments - all we need to do is iterate over the comments array using the usual
     # ruby "each" method.
@@ -185,7 +185,7 @@ class CommentForm
 
   export_state :author, :text
 
-  def render
+  render do
     div do
       div do
 
@@ -237,7 +237,7 @@ class Comment
   param :author
   param :text
 
-  def render
+  render do
     div.comment do
       h2.comment_author { params.author }
       # NOTE: single underscores in haml style class names are converted to dashes
@@ -257,7 +257,7 @@ class Showdown
 
   param :markup
 
-  def render
+  render do
 
     # we will use some Opal lowlevel stuff to interface to the javascript Showdown class
     # we only need to build the converter once, and then reuse it so we will use a plain old

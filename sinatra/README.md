@@ -4,6 +4,6 @@ This is a rewrite of original comment box example using React.rb from the [React
 
 ## To use
 
-1. `bundle install` 
+1. `bundle install`
 2. `bundle exec rackup`
 3. And visit <http://localhost:9292/>. Try opening multiple tabs!

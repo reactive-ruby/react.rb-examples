@@ -8,7 +8,7 @@
 
 ## Getting Started
 
-`git clone https://github.com/reactrby/reactrb-examples.git`.
+`git clone https://github.com/reactrb/reactrb-examples.git`.
 
 To see some live examples in action, cd to the project directory then:
 

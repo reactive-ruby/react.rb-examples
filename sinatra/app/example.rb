@@ -17,13 +17,9 @@ Document.ready? do  # Document.ready? is a opal-jquery method.  The block will r
     )
 end
 
-class CommentBox
+class CommentBox < React::Component::Base
 
   # A react component is simply a class that has a "render" method.
-
-  # But including React::Component mixin provides a nice dsl, and many other features
-
-  include React::Component
 
   # Components can have parameters that are passed in when the component is first "mounted"
   # and then updated as the application state changes.  In this case, url and poll_interval will
@@ -127,9 +123,7 @@ end
 
 # Our second component!
 
-class CommentList
-
-  include React::Component
+class CommentList < React::Component::Base
 
   # As we saw above a CommentList component takes a comments parameter
   # Here we introduce optional parameter type checking.  The syntax [Hash] means "Array of Hashes"
@@ -169,9 +163,7 @@ end
 # Notice that the above CommentList component had no state.  Each time its parameters change, it simply re-renders.
 # CommentForm does have internal state as we will see...
 
-class CommentForm
-
-  include React::Component
+class CommentForm < React::Component::Base
 
   # While declaring the type of a param is optional it's handy not only for debug, but also to let React create
   # appropriate helpers based on the type.  In this case we are passing in a Proc, and so React will treat the
@@ -230,9 +222,7 @@ end
 # Wow only two more components left!  This one is a breeze.  We just take the author, and text and display
 # them.  We already know how to use our Showdown component to display the markdown so we can just reuse that.
 
-class Comment
-
-  include React::Component
+class Comment < React::Component::Base
 
   param :author
   param :text
@@ -251,9 +241,7 @@ end
 
 # Last but not least here is our ShowDown Component
 
-class Showdown
-
-  include React::Component
+class Showdown < React::Component::Base
 
   param :markup
 

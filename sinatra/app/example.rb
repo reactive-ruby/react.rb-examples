@@ -171,7 +171,8 @@ class CommentForm < React::Component::Base
   # We are going to have 2 state variables.  One for each field in the comment.  As the user types,
   # these state variables will be updating, causing a rerender of the CommentForm (but no other components.)
 
-  export_state :author, :text
+  define_state author: ''
+  define_state text: ''
 
   render do
     div do

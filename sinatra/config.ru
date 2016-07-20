@@ -2,20 +2,25 @@
 require 'bundler'
 Bundler.require
 
-Opal::Processor.source_map_enabled = true
-
 opal = Opal::Server.new {|s|
-  s.append_path './app'
+  s.append_path 'app'
   s.main = 'example'
-  s.debug = true
 }
 
-map opal.source_maps.prefix do
-  run opal.source_maps
-end rescue nil
+sprockets   = opal.sprockets
+prefix      = '/assets'
+maps_prefix = '/__OPAL_SOURCE_MAPS__'
+maps_app    = Opal::SourceMapServer.new(sprockets, maps_prefix)
 
-map '/assets' do
-  run opal.sprockets
+# Monkeypatch sourcemap header support into sprockets
+::Opal::Sprockets::SourceMapHeaderPatch.inject!(maps_prefix)
+
+map maps_prefix do
+  run maps_app
+end
+
+map prefix do
+  run sprockets
 end
 
 get '/comments.json' do
@@ -44,9 +49,8 @@ get '/' do
         <title>Hello React</title>
         <link rel="stylesheet" href="base.css" />
         <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
-        <script src="/assets/example.js"></script>
         <script src="/comments.js"></script>
-        <script>#{Opal::Processor.load_asset_code(opal.sprockets, "example.js")}</script>
+        #{::Opal::Sprockets.javascript_include_tag('example', sprockets: sprockets, prefix: prefix, debug: true)}
       </head>
       <body>
         <div id="content"></div>

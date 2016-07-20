@@ -10,20 +10,12 @@ Document.ready? do  # Document.ready? is a opal-jquery method.  The block will r
 
   # render an instance of the CommentBox component at the '#content' element.
   # url and poll_interval are the initial params for this comment box
-  React.render(
-    React.create_element(
-      CommentBox, url: "comments.json", poll_interval: 2),
-    Element['#content']
-    )
+  Element['#content'].render { CommentBox url: 'comments.json', poll_interval: 2 }
 end
 
-class CommentBox
+class CommentBox < React::Component::Base
 
   # A react component is simply a class that has a "render" method.
-
-  # But including React::Component mixin provides a nice dsl, and many other features
-
-  include React::Component
 
   # Components can have parameters that are passed in when the component is first "mounted"
   # and then updated as the application state changes.  In this case, url and poll_interval will
@@ -96,7 +88,7 @@ class CommentBox
   # throw an error.  Just remember that there is already a DOM node waiting for the output of the render
   # hence the need for exactly one element per render.
 
-  def render
+  render do
 
     # the dsl syntax is simply a method call, with params hash, followed by a block
     # the built in dsl methods correspond to the standard HTML5 tags such as div, h1, table, tr, td, span etc.
@@ -127,9 +119,7 @@ end
 
 # Our second component!
 
-class CommentList
-
-  include React::Component
+class CommentList < React::Component::Base
 
   # As we saw above a CommentList component takes a comments parameter
   # Here we introduce optional parameter type checking.  The syntax [Hash] means "Array of Hashes"
@@ -146,7 +136,7 @@ class CommentList
   # does NOT reinitialize its state.  If changes in state are needed as result of incoming param changes
   # the before_receive_props call back can be used.
 
-  def render
+  render do
 
     # Let's render some comments - all we need to do is iterate over the comments array using the usual
     # ruby "each" method.
@@ -169,9 +159,7 @@ end
 # Notice that the above CommentList component had no state.  Each time its parameters change, it simply re-renders.
 # CommentForm does have internal state as we will see...
 
-class CommentForm
-
-  include React::Component
+class CommentForm < React::Component::Base
 
   # While declaring the type of a param is optional it's handy not only for debug, but also to let React create
   # appropriate helpers based on the type.  In this case we are passing in a Proc, and so React will treat the
@@ -183,9 +171,10 @@ class CommentForm
   # We are going to have 2 state variables.  One for each field in the comment.  As the user types,
   # these state variables will be updating, causing a rerender of the CommentForm (but no other components.)
 
-  export_state :author, :text
+  define_state author: ''
+  define_state text: ''
 
-  def render
+  render do
     div do
       div do
 
@@ -230,14 +219,12 @@ end
 # Wow only two more components left!  This one is a breeze.  We just take the author, and text and display
 # them.  We already know how to use our Showdown component to display the markdown so we can just reuse that.
 
-class Comment
-
-  include React::Component
+class Comment < React::Component::Base
 
   param :author
   param :text
 
-  def render
+  render do
     div.comment do
       h2.comment_author { params.author }
       # NOTE: single underscores in haml style class names are converted to dashes
@@ -251,13 +238,11 @@ end
 
 # Last but not least here is our ShowDown Component
 
-class Showdown
-
-  include React::Component
+class Showdown < React::Component::Base
 
   param :markup
 
-  def render
+  render do
 
     # we will use some Opal lowlevel stuff to interface to the javascript Showdown class
     # we only need to build the converter once, and then reuse it so we will use a plain old
